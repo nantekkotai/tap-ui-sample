@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>grunt-simple-server</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+<style>
+.fa-star { color: #FFD700; }
+.fa-star-o { color: gray; }
+
+.on .fa-star, 
+.on .fa-star-o { opacity: 0.5; }
+</style>
+</head>
+
+<body>
+
+<div class="wrapper">
+
+  <header>
+    <h1 style="text-align:center;">リスト</h1>
+  </header>
+
+  <ul class="list-group">
+    <li class="list-group-item">
+      <h4 class="list-group-item-heading"><a href="#"><i class="fa fa-star"></i></a> リストタイトル</h4>
+    </li>
+    <li class="list-group-item">
+      <h4 class="list-group-item-heading"><a href="#"><i class="fa fa-star-o"></i></a> リストタイトル</h4>
+    </li>
+  </ul>
+
+</div>
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+<script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<script>
+
+function Star(elm, params) {
+  if (!elm) return;
+  elm = $(elm);
+  var offset = elm.offset(),
+      size = { width: elm.width(), height: elm.height() },
+      effectiveRange = {
+        minX: offset.left,
+        maxX: offset.left + size.width,
+        minY: offset.top,
+        maxY: offset.top + size.height
+      };
+
+  function isEffective(x, y) {
+    return !!(effectiveRange.minX <= x
+            && x <= effectiveRange.maxX
+            && effectiveRange.minY <= y 
+            && y <= effectiveRange.maxY);
+  }
+
+  elm
+  .bind('touchstart', function () {
+     $(this).addClass('on');
+  })
+  .bind('touchmove', function (e) {
+    if (isEffective(event.changedTouches[0].pageX, event.changedTouches[0].pageY)) {
+       $(this).addClass('on');
+    } else {
+       $(this).removeClass('on');
+    }
+  })
+  .bind('touchend', function () {
+    $(this).removeClass('on');
+    if (!isEffective(event.changedTouches[0].pageX, event.changedTouches[0].pageY)) return;
+
+    var $star = $($(this).find('i'));
+    if ($star.hasClass('fa-star-o')) {
+      $star.removeClass('fa-star-o').addClass('fa-star');
+    } else {
+      $star.removeClass('fa-star').addClass('fa-star-o');
+    }
+  });
+
+  this.elm = elm;
+}
+Star.prototype = {
+  check: function () {
+
+  },
+
+  toggle: function () {
+
+  },
+
+  on: function () {
+
+  },
+
+  off: function () {
+
+  }
+}
+
+$(function(){
+
+var stars = [];
+$('.list-group').find('a').each(function (i, elm) {
+  stars.push(new Star(elm));
+});
+
+});
+</script>
+</body>
+</html>
