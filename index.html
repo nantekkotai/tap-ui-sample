@@ -2,12 +2,12 @@
 <html>
 <head>
 <meta charset="utf-8" />
-<title>grunt-simple-server</title>
+<title>tap-ui-sample</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 <style>
-.list-group-item { -webkit-user-select: none; }
+body { -webkit-user-select: none; }
 .star {
   font-size: x-large;
 }
@@ -28,7 +28,7 @@
   </header>
 
   <ul class="list-group">
-    <li class="list-group-item">
+    <li class="list-group-item" id="list0001">
       <h4 class="list-group-item-heading"><i class="star fa fa-star"></i> リストタイトル</h4>
     </li>
     <li class="list-group-item">
@@ -40,76 +40,23 @@
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
 <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<script src="./dist/output.min.js"></script>
 <script>
-
-function Star(elm, params) {
-  if (!elm) return;
-  elm = $(elm);
-  var offset = elm.offset(),
-      size = { width: elm.innerWidth(), height: elm.innerHeight() },
-      effectiveRange = {
-        minX: offset.left,
-        maxX: offset.left + size.width,
-        minY: offset.top,
-        maxY: offset.top + size.height
-      };
-console.log("[range]", effectiveRange);
-  function isEffective(x, y) {
-    return !!(effectiveRange.minX <= x
-            && x <= effectiveRange.maxX
-            && effectiveRange.minY <= y 
-            && y <= effectiveRange.maxY);
-  }
-
-  elm
-  .bind('touchstart', function () {
-     $(this).addClass('on');
-  })
-  .bind('touchmove', function (e) {
-    if (isEffective(event.changedTouches[0].pageX, event.changedTouches[0].pageY)) {
-       $(this).addClass('on');
-    } else {
-       $(this).removeClass('on');
-    }
-  })
-  .bind('touchend', function () {
-    $(this).removeClass('on');
-    console.log("[end]", event.changedTouches[0].pageX, event.changedTouches[0].pageY, isEffective(event.changedTouches[0].pageX, event.changedTouches[0].pageY));
-    if (!isEffective(event.changedTouches[0].pageX, event.changedTouches[0].pageY)) return;
-
-    var $star = $($(this).find('i'));
-    if ($star.hasClass('fa-star-o')) {
-      $star.removeClass('fa-star-o').addClass('fa-star');
-    } else {
-      $star.removeClass('fa-star').addClass('fa-star-o');
-    }
-  });
-
-  this.elm = elm;
-}
-Star.prototype = {
-  check: function () {
-
-  },
-
-  toggle: function () {
-
-  },
-
-  on: function () {
-
-  },
-
-  off: function () {
-
-  }
-}
 
 $(function(){
 
 var stars = [];
 $('.list-group').find('li').each(function (i, elm) {
-  stars.push(new Star(elm));
+  stars.push(
+    new Star(
+      elm,
+      function () {
+        //console.log("star add.");
+
+      },
+      function () {
+        //console.log("star remove.");
+      }));
 });
 
 });
