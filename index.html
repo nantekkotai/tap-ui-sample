@@ -7,18 +7,15 @@
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 <style>
+.list-group-item { -webkit-user-select: none; }
 .star {
-  display: inline-block;
-  width: 22px;
-  height: 24px;
   font-size: x-large;
 }
 
 .fa-star { color: #FFD700; }
 .fa-star-o { color: gray; }
 
-.on .fa-star, 
-.on .fa-star-o { opacity: 0.5; }
+.on h4 { opacity: 0.5; }
 </style>
 </head>
 
@@ -32,10 +29,10 @@
 
   <ul class="list-group">
     <li class="list-group-item">
-      <h4 class="list-group-item-heading"><a href="#" class="star"><i class="fa fa-star"></i></a> リストタイトル</h4>
+      <h4 class="list-group-item-heading"><i class="star fa fa-star"></i> リストタイトル</h4>
     </li>
     <li class="list-group-item">
-      <h4 class="list-group-item-heading"><a href="#" class="star"><i class="fa fa-star-o"></i></a> リストタイトル</h4>
+      <h4 class="list-group-item-heading"><i class="star fa fa-star-o"></i> リストタイトル</h4>
     </li>
   </ul>
 
@@ -49,14 +46,14 @@ function Star(elm, params) {
   if (!elm) return;
   elm = $(elm);
   var offset = elm.offset(),
-      size = { width: elm.width(), height: elm.height() },
+      size = { width: elm.innerWidth(), height: elm.innerHeight() },
       effectiveRange = {
         minX: offset.left,
         maxX: offset.left + size.width,
         minY: offset.top,
         maxY: offset.top + size.height
       };
-
+console.log("[range]", effectiveRange);
   function isEffective(x, y) {
     return !!(effectiveRange.minX <= x
             && x <= effectiveRange.maxX
@@ -77,6 +74,7 @@ function Star(elm, params) {
   })
   .bind('touchend', function () {
     $(this).removeClass('on');
+    console.log("[end]", event.changedTouches[0].pageX, event.changedTouches[0].pageY, isEffective(event.changedTouches[0].pageX, event.changedTouches[0].pageY));
     if (!isEffective(event.changedTouches[0].pageX, event.changedTouches[0].pageY)) return;
 
     var $star = $($(this).find('i'));
@@ -110,7 +108,7 @@ Star.prototype = {
 $(function(){
 
 var stars = [];
-$('.list-group').find('a').each(function (i, elm) {
+$('.list-group').find('li').each(function (i, elm) {
   stars.push(new Star(elm));
 });
 
