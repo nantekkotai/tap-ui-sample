@@ -31,7 +31,7 @@ function Star(elm, addFunc, removeFunc) {
       timerId = setTimeout(_before, ms);
     }
   }
-  var thr = throttle(200);
+  var thr = throttle(300);
 
   elm
   .bind('touchstart', function () {
