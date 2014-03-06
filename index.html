@@ -68,21 +68,6 @@ body { -webkit-user-select: none; }
     <li class="list-group-item">
       <h4 class="list-group-item-heading"><i class="star fa fa-star-o"></i> リストタイトル5</h4>
     </li>
-    <li class="list-group-item">
-      <h4 class="list-group-item-heading"><i class="star fa fa-star-o"></i> リストタイトル6</h4>
-    </li>
-    <li class="list-group-item">
-      <h4 class="list-group-item-heading"><i class="star fa fa-star-o"></i> リストタイトル7</h4>
-    </li>
-    <li class="list-group-item">
-      <h4 class="list-group-item-heading"><i class="star fa fa-star-o"></i> リストタイトル8</h4>
-    </li>
-    <li class="list-group-item">
-      <h4 class="list-group-item-heading"><i class="star fa fa-star-o"></i> リストタイトル9</h4>
-    </li>
-    <li class="list-group-item">
-      <h4 class="list-group-item-heading"><i class="star fa fa-star-o"></i> リストタイトル10</h4>
-    </li>
   </ul>
 
 </div>
@@ -96,10 +81,9 @@ body { -webkit-user-select: none; }
 <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 <script src="./dist/output.min.js"></script>
 <script>
-var statusBar;
 $(function(){
 
-  statusBar = (function(){
+  var statusBar = (function(){
     var $statusBar = $('.status-bar'),
         $statusBarBG = $('.status-bar-bg'),
         $num = $('.num'),

@@ -68,7 +68,6 @@ var requestQue = (function(){
     },
 
     next: function () {
-console.log("[NEXT]", this.lock());
       if (this.lock() === true) return;
       this.lock(true);
 

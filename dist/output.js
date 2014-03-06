@@ -56,7 +56,7 @@ function Myspot() {
       timerId = setTimeout(_before, ms);
     }
   }
-  var thr = throttle(300);
+  var thr = throttle(500);
 
   elm
   .bind('touchstart', function () {
@@ -71,6 +71,7 @@ function Myspot() {
   })
   .bind('touchend', function () {
     $(this).removeClass('on');
+    console.log("[end]", isEffective(event.changedTouches[0].pageX, event.changedTouches[0].pageY));
     if (!isEffective(event.changedTouches[0].pageX, event.changedTouches[0].pageY)) return;
 
     var $star = $($(this).find('i'));
@@ -89,23 +90,6 @@ function Myspot() {
   });
 
   this.elm = elm;
-}
-Star.prototype = {
-  check: function () {
-
-  },
-
-  toggle: function () {
-
-  },
-
-  on: function () {
-
-  },
-
-  off: function () {
-
-  }
 };
 var requestQue = (function(){
 
@@ -176,7 +160,6 @@ var requestQue = (function(){
     },
 
     next: function () {
-console.log("[NEXT]", this.lock());
       if (this.lock() === true) return;
       this.lock(true);
 
